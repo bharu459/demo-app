@@ -3,25 +3,25 @@ pipeline {
       stages {     
         stage("Build") {
             steps {
-                sh 'mvn clean package'
+                 mvn clean verify sonar:sonar
                
             }
         }
-        stage("SonarQube Analysis") {
-            steps {
-              sh 'mvn sonar:sonar'
-            }
-        }
-        stage('Approve Deployment') {
-              input{
-                   message "Do you want to proceed for deployment?"
-                      }
-              steps {
-                  //Add deploy steps & Alerts below
-                  sh 'echo "Deploying into Server"' 
+        // stage("SonarQube Analysis") {
+        //     steps {
+        //       sh 'mvn sonar:sonar'
+        //     }
+        // }
+        // stage('Approve Deployment') {
+        //       input{
+        //            message "Do you want to proceed for deployment?"
+        //               }
+        //       steps {
+        //           //Add deploy steps & Alerts below
+        //           sh 'echo "Deploying into Server"' 
 
-                }
-          } 
+        //         }
+        // } 
           
       } // stage
         
