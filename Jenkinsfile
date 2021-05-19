@@ -1,29 +1,29 @@
 pipeline {
-      agent any
-      stages {     
-        stage("Build") {
+  agent any
+  stages {     
+    stage("Build") {
             steps {
-                sh 'mvn clean verify sonar:sonar'
+                sh 'mvn clean verify'
                
             }
-        }
-        // stage("SonarQube Analysis") {
-        //     steps {
-        //       sh 'mvn sonar:sonar'
-        //     }
-        // }
-        // stage('Approve Deployment') {
-        //       input{
-        //            message "Do you want to proceed for deployment?"
-        //               }
-        //       steps {
-        //           //Add deploy steps & Alerts below
-        //           sh 'echo "Deploying into Server"' 
-
-        //         }
-        // } 
-          
-      } // stage
+    }
+    stage('Sonarqube Analysis') {
+          environment {
+              scannerHome = tool 'SonarQubeScanner'
+          }
+          steps {
+              withSonarQubeEnv('sonarqube') {
+                  sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=${sonartoken}"
+              }
+          }
+    }
+    stage("Quality Gate") {
+          steps {
+              timeout(time: 1, unit: 'HOURS') {
+              waitForQualityGate abortPipeline: true }
+          }
+    }    
+  } 
         
   // post {
 
