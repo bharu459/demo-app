@@ -3,9 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.sonarqube</groupId>
-  <artifactId>sonarscanner-maven-basic</artifactId>
-  <version>1.0-SNAPSHOT</version>
+ 
 
   <name>Example of basic Maven project</name>
 
@@ -52,18 +50,6 @@
   </build>
 
   <profiles>
-  <profile>
-<id>sonar</id>
-<activation>
-<activeByDefault>true</activeByDefault>
-</activation>
-<properties>
-<!-- Optional URL to server. Default value is http://localhost:9000 -->
-<sonar.host.url>
-http://172.31.46.41:9091
-</sonar.host.url>
-</properties>
-</profile>
     <profile>
       <id>coverage</id>
       <activation>
